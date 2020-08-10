@@ -1,14 +1,50 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
+import '../sass/app.scss';
 
-// any CSS you import will output into a single css file (app.css in this case)
-import '../css/app.css';
+// Dashforge utils
+import Dashforge from './modules/Dashforge';
+import DashforgeAside from './modules/DashforgeAside';
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
+// Bootstrap utils
+import 'bootstrap/js/dist/alert'
+import 'bootstrap/js/dist/dropdown'
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+// Frontend Dashboard
+document.addEventListener('DOMContentLoaded', function () {
+    new Dashforge();
+    new DashforgeAside();
+
+    const datepicker = document.querySelectorAll("input.datepicker");
+    if (datepicker.length > 0) {
+        import('flatpickr')
+            .then(m => {
+                m.default(datepicker, {
+                    minDate: 'today',
+                    weekNumbers: true,
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i" +
+                        "",
+                })
+            })
+            .catch(e => console.error({e}));
+    }
+
+    const selects = document.querySelectorAll('select.select2');
+    if (selects.length > 0) {
+        import('select2')
+            .then(() => {
+                $(selects).select2({
+                    placeholder: 'choisir',
+                    allowClear: true,
+                    searchInputPlaceholder: 'recherche...'
+                })
+            })
+            .catch(e => console.error({e}))
+    }
+
+    const tables = document.querySelectorAll('table[data-datatable]');
+    if (tables.length > 0) {
+        import('./modules/DashforgeDatatable')
+            .then(module => new module.default())
+            .catch(e => console.error({e}))
+    }
+});
