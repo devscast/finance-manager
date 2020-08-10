@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of the devscast Project.
+ *
+ * (c) Bernard Ng <ngandubernard@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App;
 
@@ -7,10 +15,19 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
+/**
+ * Class Kernel
+ * @package App
+ * @author bernard-ng <ngandubernard@gmail.com>
+ */
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    /**
+     * @param ContainerConfigurator $container
+     * @author bernard-ng <ngandubernard@gmail.com>
+     */
     protected function configureContainer(ContainerConfigurator $container): void
     {
         $container->import('../config/{packages}/*.yaml');
@@ -24,6 +41,10 @@ class Kernel extends BaseKernel
         }
     }
 
+    /**
+     * @param RoutingConfigurator $routes
+     * @author bernard-ng <ngandubernard@gmail.com>
+     */
     protected function configureRoutes(RoutingConfigurator $routes): void
     {
         $routes->import('../config/{routes}/'.$this->environment.'/*.yaml');

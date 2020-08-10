@@ -4,6 +4,11 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    app.admin_prefix: '%env(APP_ADMIN_PREFIX)%'
+    app.locales: [fr, en]
+    app.locale_default: fr
+    app.locale_fallback: en
+
 
 services:
     # default configuration for services in *this* file
@@ -23,8 +28,12 @@ services:
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller/'
+    App\Http\Controller\:
+        resource: '../src/Http/Controller/'
+        tags: ['controller.service_arguments']
+
+    App\Http\Api\:
+        resource: '../src/Http/Api'
         tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed

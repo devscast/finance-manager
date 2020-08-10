@@ -1,0 +1,22 @@
+{% if app.user %}
+    <div class="nav-link dropdown dropdown-profile">
+        <a href="#" class="dropdown-link" data-toggle="dropdown" data-display="static">
+            <div class="avatar avatar-sm">
+                <i data-feather="user" class="rounded-circle"></i>
+            </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right shadow border-0">
+            <h6 class="tx-bold mg-b-5">{{ app.user.username }}</h6>
+            {# <p class="tx-color-03 tx-12 mg-b-0">Dernière IP : {{ app.user.lastLoginIp }}</p>
+            <p class="tx-color-03 tx-12 mg-b-25">Connexion : {{ app.user.lastLoginAt }}</p> #}
+
+            <div class="dropdown-divider"></div>
+            <form action="#" method="post" class="form-inline nav-link">
+                <button class="btn btn-danger btn-block text-white mt-2">
+                    <i data-feather="log-out" class="text-white"></i>
+                    <span>{{ 'logout' | trans }}</span>
+                </button>
+            </form>
+        </div>
+    </div>
+{% endif %}
