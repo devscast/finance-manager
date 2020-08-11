@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Devscast Project.
+ * This file is part of the devscast Project.
  *
  * (c) Bernard Ng <ngandubernard@gmail.com>
  *
@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace App\Command\User;
+namespace App\Application\Command;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
