@@ -7,7 +7,7 @@ a finance manager app built with symfony using DDD and Hexagonal Architecture
 ## How to contribute
 * Fork the repo on your github
 * Clone your forked repo 
-* Add or choose an issue at https://github.com/devscast/covid19-backend/issues
+* Add or choose an issue at https://github.com/devscast/finance-manager/issues
 * Do not change a feature or function that is not relevant to your issue.
 * Make your changes
 * Commit fast, Commit often , keep it optional
