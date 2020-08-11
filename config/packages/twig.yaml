@@ -6,4 +6,5 @@ twig:
         format: d F Y
         interval_format: '%%d days'
     globals:
-        locales: '%app.locales%'
+        app_name: '%app.name%'
+        app_locales: '%app.locales%'

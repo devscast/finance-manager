@@ -11,9 +11,8 @@ declare(strict_types=1);
 
 namespace App\Application\Command;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
-use App\Utils\Validator;
+use App\Domain\User\Entity\User;
+use App\Domain\User\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -53,16 +52,20 @@ class UserAddCommand extends Command
     // so it will be instantiated only when the command is actually called.
     protected static $defaultName = 'app:user:add';
 
+    private SymfonyStyle $io;
+    private EntityManagerInterface $entityManager;
+    private UserPasswordEncoderInterface $passwordEncoder;
+    private ValidatorInterface $validator;
+    private UserRepository $users;
+
     /**
-     * @var SymfonyStyle
+     * UserAddCommand constructor.
+     * @param EntityManagerInterface $em
+     * @param UserPasswordEncoderInterface $encoder
+     * @param ValidatorInterface $validator
+     * @param UserRepository $users
+     * @author bernard-ng <ngandubernard@gmail.com>
      */
-    private $io;
-
-    private $entityManager;
-    private $passwordEncoder;
-    private $validator;
-    private $users;
-
     public function __construct(
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $encoder,
@@ -223,8 +226,8 @@ class UserAddCommand extends Command
         }
 
         // validate password and email if is not this input means interactive.
-        $this->validator->validatePassword($plainPassword);
-        $this->validator->validateEmail($email);
+        //$this->validator->validatePassword($plainPassword);
+        //$this->validator->validateEmail($email);
 
         // check if a user with the same email already exists.
         $existingEmail = $this->users->findOneBy(['email' => $email]);
