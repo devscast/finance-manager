@@ -11,11 +11,13 @@
 namespace App\Domain\User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\User\Repository\UserRepository")
+ * @UniqueEntity("email")
  */
 class User implements UserInterface
 {
@@ -25,6 +27,12 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
+
+    /**
+     * @ORM\Column(type="string", length=180)
+     * @Assert\NotBlank()
+     */
+    private ?string $username = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -59,6 +67,18 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $username
+     * @return $this
+     * @author bernard-ng <ngandubernard@gmail.com>
+     */
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     /**

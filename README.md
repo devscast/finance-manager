@@ -19,7 +19,6 @@ A finance manager app built with symfony using DDD and Hexagonal Architecture
 
 * [ ] Organizing bills by week, month and year as well as by categories
 * [ ] Schedule the payments and recurring payments
-* [ ] Payment alerts
 * [ ] Daily, weekly, monthly, and yearly budget with progress bar
 * [ ] Daily, weekly, monthly, and yearly summary
 * [ ] Calendar view for expense and income
