@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the devscast Project.
  *
@@ -24,6 +25,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 use function Symfony\Component\String\u;
 
 /**
@@ -71,8 +73,7 @@ class UserAddCommand extends Command
         UserPasswordEncoderInterface $encoder,
         ValidatorInterface $validator,
         UserRepository $users
-    )
-    {
+    ) {
         parent::__construct();
 
         $this->entityManager = $em;
@@ -125,7 +126,11 @@ class UserAddCommand extends Command
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email')) {
+        if (
+            null !== $input->getArgument('username') &&
+            null !== $input->getArgument('password') &&
+            null !== $input->getArgument('email')
+        ) {
             return;
         }
 
@@ -153,7 +158,10 @@ class UserAddCommand extends Command
         if (null !== $password) {
             $this->io->text(' > <info>Password</info>: ' . u('*')->repeat(u($password)->length()));
         } else {
-            $password = $this->io->askHidden('Password (your type will be hidden)', [$this->validator, 'validatePassword']);
+            $password = $this->io->askHidden(
+                'Password (your type will be hidden)',
+                [$this->validator, 'validatePassword']
+            );
             $input->setArgument('password', $password);
         }
 
@@ -200,11 +208,25 @@ class UserAddCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->io->success(sprintf('%s was successfully created: %s (%s)', $isAdmin ? 'Administrator user' : 'User', $user->getUsername(), $user->getEmail()));
+        $this->io->success(
+            sprintf(
+                '%s was successfully created: %s (%s)',
+                $isAdmin ? 'Administrator user' : 'User',
+                $user->getUsername(),
+                $user->getEmail()
+            )
+        );
 
         $event = $stopwatch->stop('add-user-command');
         if ($output->isVerbose()) {
-            $this->io->comment(sprintf('New user database id: %d / Elapsed time: %.2f ms / Consumed memory: %.2f MB', $user->getId(), $event->getDuration(), $event->getMemory() / (1024 ** 2)));
+            $this->io->comment(
+                sprintf(
+                    'New user database id: %d / Elapsed time: %.2f ms / Consumed memory: %.2f MB',
+                    $user->getId(),
+                    $event->getDuration(),
+                    $event->getMemory() / (1024 ** 2)
+                )
+            );
         }
 
         return 0;
@@ -222,7 +244,9 @@ class UserAddCommand extends Command
         $existingUser = $this->users->findOneBy(['username' => $username]);
 
         if (null !== $existingUser) {
-            throw new RuntimeException(sprintf('There is already a user registered with the "%s" username.', $username));
+            throw new RuntimeException(
+                sprintf('There is already a user registered with the "%s" username.', $username)
+            );
         }
 
         // validate password and email if is not this input means interactive.

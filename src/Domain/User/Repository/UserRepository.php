@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the devscast Project.
  *
@@ -57,4 +58,3 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 }
-
