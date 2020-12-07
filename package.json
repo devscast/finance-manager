@@ -2,7 +2,7 @@
   "devDependencies": {
     "@symfony/webpack-encore": "^0.30.0",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "core-js": "^3.0.0",
+    "core-js": "^3.8.1",
     "regenerator-runtime": "^0.13.2",
     "sass-loader": "^9.0.3",
     "webpack-notifier": "^1.6.0"
